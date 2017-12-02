@@ -7,7 +7,7 @@ namespace backend.Models
 {
     public class Message
     {
-        public string Owner { get; set; }
+        public string Sender { get; set; }
         public string Text { get; set; }
     }
 }
