@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace backend.Models
 {
-    public class Message
+    public class Transfer
     {
         public string Sender { get; set; }
-        public string Text { get; set; }
+        public int Amount { get; set; }
     }
 }

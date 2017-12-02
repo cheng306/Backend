@@ -9,33 +9,35 @@ using backend.Models;
 namespace backend.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Messages")]
-    public class TextMessagesController : Controller
+    [Route("api/Transfers")]
+    public class TransfersController : Controller
     {
 
-        static List<Message> messagesList = new List<Message>
+        static List<Transfer> transfersList = new List<Transfer>
         {
-            new Message
+            new Transfer
             {
                 Sender = "John",
-                Text = "hello"
+
+                Amount = 30
             },
-            new Message
+            new Transfer
             {
                 Sender = "Tim",
-                Text = "diii"
+                Amount = 20
             }
         };
 
-        public IEnumerable<Message> Get()
+        public IEnumerable<Transfer> Get()
         {
-            return messagesList;
+            return transfersList;
         }
 
         [HttpPost]
-        public void Post([FromBody] Message message)
+        public Transfer Post([FromBody] Transfer transfer)
         {
-            messagesList.Add(message);
+            transfersList.Add(transfer);
+            return transfer;
         }
     }
 }
