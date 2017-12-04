@@ -27,10 +27,17 @@ namespace backend.Controllers
                 Amount = 20
             }
         };
-
+        
         public IEnumerable<Transfer> Get()
         {
             return transfersList;
+        }
+        
+
+        [HttpGet("{sender}")]
+        public IEnumerable<Transfer> Get(string sender)
+        {
+            return transfersList.FindAll(transfer => transfer.Sender == sender);
         }
 
         [HttpPost]
