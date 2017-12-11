@@ -12,39 +12,31 @@ namespace backend.Controllers
     [Route("api/Transfers")]
     public class TransfersController : Controller
     {
+        readonly AppDatabase database;
 
-        static List<Transfer> transfersList = new List<Transfer>
+        public TransfersController(AppDatabase database)
         {
-            new Transfer
-            {
-                Sender = "John",
+            this.database = database;
+        }
 
-                Amount = 30
-            },
-            new Transfer
-            {
-                Sender = "Tim",
-                Amount = 20
-            }
-        };
-        
         public IEnumerable<Transfer> Get()
         {
-            return transfersList;
+            return database.TransfersList;
         }
-        
+
 
         [HttpGet("{sender}")]
         public IEnumerable<Transfer> Get(string sender)
         {
-            return transfersList.FindAll(transfer => transfer.Sender == sender);
+            return database.TransfersList.Where(transfer => transfer.Sender == sender);
         }
 
         [HttpPost]
         public Transfer Post([FromBody] Transfer transfer)
         {
-            transfersList.Add(transfer);
-            return transfer;
+            var newTransfer = database.TransfersList.Add(transfer).Entity;
+            database.SaveChanges();
+            return newTransfer;
         }
     }
 }
