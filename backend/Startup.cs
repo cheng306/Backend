@@ -55,11 +55,8 @@ namespace backend
 
         public void InitializeDb(AppDatabase database)
         {
-            database.TransfersList.Add(new Transfer{Sender = "John",Amount = 10});
-            database.TransfersList.Add(new Transfer{ Sender = "Tim",Amount = 20});
-
+            //create a Test User 
             database.Users.Add(new User { Email = "a@gmail.com", FirstName = "Tim", LastName = "Tim", Password = "a", UserName="Timu" });
-
             database.SaveChanges();
         }
 

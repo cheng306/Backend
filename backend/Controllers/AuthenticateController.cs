@@ -23,21 +23,27 @@ namespace backend.Controllers
         [HttpPost("register")]
         public JwtResponse Register([FromBody] User user)
         {
+            //get the token
             var jwt = new JwtSecurityToken();
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            //add user to database
             database.Users.Add(user);
             database.SaveChanges();
 
+            //return to frontend
             return new JwtResponse() {
                 Token = encodedJwt
                 ,FirstName = user.FirstName
                 ,LastName = user.LastName
+                ,UserName = user.UserName
             };
         }
 
         [HttpPost("login")]
         public ActionResult Login([FromBody] LoginData loginData)
         {
+            //get the login user
             var loginUser = database.Users.SingleOrDefault(user => user.UserName == loginData.UserName && user.Password == loginData.Password);
 
             if (loginUser == null)
@@ -46,10 +52,18 @@ namespace backend.Controllers
             }
             else
             {
+                //get the token
                 var jwt = new JwtSecurityToken();
                 var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+                //get the response to frontend
                 var response = new JwtResponse(){
-                    Token = encodedJwt,FirstName = loginUser.FirstName,LastName = loginUser.LastName};
+                    Token = encodedJwt
+                    ,FirstName = loginUser.FirstName
+                    ,LastName = loginUser.LastName
+                    ,UserName = loginUser.UserName  
+                };
+
                 return Ok(response);
 
             }

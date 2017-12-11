@@ -19,12 +19,13 @@ namespace backend.Controllers
             this.database = database;
         }
 
+        //get transferlist without sepecify the sender
         public IEnumerable<Transfer> Get()
         {
             return database.TransfersList;
         }
 
-
+        //get the transferlist with specific sender
         [HttpGet("{sender}")]
         public IEnumerable<Transfer> Get(string sender)
         {

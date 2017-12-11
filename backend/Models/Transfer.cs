@@ -9,6 +9,7 @@ namespace backend.Models
     {
         public string Id { get; set; }
         public string Sender { get; set; }
+        public string Receiver { get; set; }
         public int Amount { get; set; }
     }
 }
